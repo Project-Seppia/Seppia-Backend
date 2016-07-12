@@ -25,6 +25,11 @@ public class DB {
             return con;
         }
     }
+    
+    
+  /////////////////////////////TEST FUNCTION/////////////////////////////////////  
+    
+    
     /**
      * Method to check whether uname and pwd combination are correct
      * 
