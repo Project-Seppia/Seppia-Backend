@@ -1,5 +1,5 @@
 package com.seppia.restful;
 
-public class UserController {
+public class UserAction {
 
 }
