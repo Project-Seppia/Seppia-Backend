@@ -7,6 +7,6 @@ import java.util.ArrayList;
 
 public class UserDB {
 	public boolean getUser(Connection connection) throws Exception{
-
+		return true;
 	}
 }
