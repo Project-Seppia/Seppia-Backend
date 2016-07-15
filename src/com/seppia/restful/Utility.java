@@ -2,7 +2,9 @@ package com.seppia.restful;
 
 import org.codehaus.jettison.json.JSONException;
 import org.codehaus.jettison.json.JSONObject;
- 
+
+import com.google.gson.*;
+
 public class Utility {
     /**
      * Null check Method
@@ -51,6 +53,33 @@ public class Utility {
             // TODO Auto-generated catch block
         }
         return obj.toString();
+    }
+    
+    public static String constructGSON(String tag, boolean status, String err_msg){
+		Gson gson = new Gson();
+		//System.out.println(locationData.toString());
+		JsonObject jo = new JsonObject();	
+		jo.addProperty("tag", tag);
+		jo.addProperty("status", status);
+		jo.addProperty("err_msg", err_msg);
+		System.out.println(jo.toString());
+		return gson.toJson(jo);
+    }
+    
+    //this function can be divided into two: 1) one single object; 2) an array of object
+    public static String constructGSON(String tag, boolean status, Object result){
+    	//serialization should be added in to utility.java
+		Gson gson = new Gson();
+		//System.out.println(locationData.toString());
+		JsonElement je = gson.toJsonTree(result);	
+		//System.out.println(je.toString());
+		JsonObject jo = new JsonObject();
+		jo.add("result", je);
+		jo.addProperty("tag", tag);
+		jo.addProperty("status", true);
+		jo.addProperty("err_msg", "None");
+		//System.out.println(jo.toString());
+		return gson.toJson(jo);
     }
  
 }

@@ -16,6 +16,7 @@ public class LocationDB {
 		{
 			PreparedStatement ps = connection.prepareStatement("SELECT address,phone,name FROM locations ORDER BY id DESC");
 			ResultSet rs = ps.executeQuery();
+			System.out.println(rs.toString());
 			while(rs.next())
 			{
 			Location locationObject = new Location();
