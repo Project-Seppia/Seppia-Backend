@@ -9,6 +9,9 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
+
+import com.seppia.dao.DB;
+import com.seppia.util.Utility;
 //Path: http://localhost/<appln-folder-name>/register
 @Path("/register")
 public class Register {

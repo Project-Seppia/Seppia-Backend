@@ -1,4 +1,4 @@
-package com.seppia.restful;
+package com.seppia.service;
 
 import java.util.ArrayList;
 
@@ -9,6 +9,8 @@ import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jettison.json.JSONArray;
 
 import com.google.gson.*;
+import com.seppia.action.UserAction;
+import com.seppia.model.User;
 
 @Path("/User")
 public class UserWebService {

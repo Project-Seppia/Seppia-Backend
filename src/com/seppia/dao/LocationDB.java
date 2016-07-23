@@ -1,11 +1,11 @@
-package com.seppia.restful;
+package com.seppia.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
-import com.seppia.restful.Location;
+import com.seppia.model.Location;
 
 public class LocationDB {
 	

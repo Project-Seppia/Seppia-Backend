@@ -1,4 +1,4 @@
-package com.seppia.restful;
+package com.seppia.dao;
 
 //Change these parameters according to DB
 public class Constants {

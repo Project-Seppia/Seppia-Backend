@@ -1,4 +1,4 @@
-package com.seppia.restful;
+package com.seppia.model;
 
 public class Location {
 	private String address;

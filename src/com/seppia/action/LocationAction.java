@@ -1,12 +1,13 @@
-package com.seppia.restful;
+package com.seppia.action;
 
 import java.sql.Connection;
 import java.util.ArrayList;
 
-import com.seppia.restful.Location;
-import com.seppia.restful.LocationDB;
+import com.seppia.dao.DB;
+import com.seppia.dao.LocationDB;
+import com.seppia.model.Location;
 
-public class LocationController {
+public class LocationAction {
 	public ArrayList<Location> getNearbyLocationsByAddress(String address) throws Exception{
 		ArrayList<Location> locationData = new ArrayList<Location>();
 		try

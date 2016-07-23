@@ -1,4 +1,4 @@
-package com.seppia.restful;
+package com.seppia.dao;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

@@ -1,10 +1,12 @@
-package com.seppia.restful;
+package com.seppia.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+
+import com.seppia.model.User;
 
 public class UserDB {
 //	private int registerUser(String name, String uname, String pwd){

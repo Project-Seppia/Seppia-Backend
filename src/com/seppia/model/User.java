@@ -1,4 +1,4 @@
-package com.seppia.restful;
+package com.seppia.model;
 
 public class User {
 	private String userName;

@@ -1,4 +1,4 @@
-package com.seppia.restful;
+package com.seppia.service;
 
 import java.util.ArrayList;
 
@@ -9,6 +9,9 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 
 import com.google.gson.*;
+import com.seppia.action.LocationAction;
+import com.seppia.model.Location;
+import com.seppia.util.Utility;
 
 @Path("/location")
 public class LocationWebService {
@@ -22,7 +25,7 @@ public class LocationWebService {
 		try
 		{
 			ArrayList<Location> locationData = new ArrayList<Location>();
-			LocationController lc = new LocationController();
+			LocationAction lc = new LocationAction();
 			//for test should return FALSE status
 			if(address == null){
 				address = "1650 81 ST";
@@ -46,7 +49,7 @@ public class LocationWebService {
 		try
 		{
 			boolean status = false;
-			LocationController lc = new LocationController();
+			LocationAction lc = new LocationAction();
 			if(address == null || name == null){
 				return Utility.constructGSON(tag, status, "Missing not-null data");
 			}

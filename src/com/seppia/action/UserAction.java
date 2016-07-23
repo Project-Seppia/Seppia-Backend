@@ -1,7 +1,11 @@
-package com.seppia.restful;
+package com.seppia.action;
 
 import java.sql.Connection;
 import java.util.ArrayList;
+
+import com.seppia.dao.DB;
+import com.seppia.dao.UserDB;
+import com.seppia.model.User;
 
 public class UserAction {
 	public ArrayList<User> getAllUsers() throws Exception{
