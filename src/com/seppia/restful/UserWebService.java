@@ -1,4 +1,4 @@
-package com.seppia.service;
+package com.seppia.restful;
 
 import java.util.ArrayList;
 
