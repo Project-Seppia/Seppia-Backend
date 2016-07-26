@@ -4,6 +4,7 @@ import org.codehaus.jettison.json.JSONException;
 import org.codehaus.jettison.json.JSONObject;
 
 import com.google.gson.*;
+import com.seppia.dao.Constants;
 
 public class Utility {
     /**
@@ -82,5 +83,24 @@ public class Utility {
 		return gson.toJson(jo);
     }
  
+    public static String constructSearchURL(String query, String radius){
+    	StringBuilder result = new StringBuilder(Constants.searchBaseURL);
+    	result.append("query=");
+    	result.append(query);
+    	result.append("&radius=");
+    	result.append(radius);
+    	result.append("&key=");
+    	result.append(Constants.mapAPIKey);
+    	return result.toString();
+    }
+    
+    public static String constructSearchQuery(String query, String zipcode, String country){
+    	StringBuilder result = new StringBuilder(query);
+    	result.append(" in");
+    	result.append(zipcode);
+    	result.append(" ");
+    	result.append(country);
+    	return result.toString();
+    }
     
 }
