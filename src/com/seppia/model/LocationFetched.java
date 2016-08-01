@@ -1,5 +1,7 @@
 package com.seppia.model;
 import java.util.*;
+import java.net.URL;
+
 public class LocationFetched {
 
 	private String address; //vicinity in return result
@@ -7,13 +9,22 @@ public class LocationFetched {
 	private String phone;
 	private String name;
 	private Geometry geometry;
-	private String icon;
+	private URL icon;
 	private String gPlaceID;
-	private ArrayList<String> openingTimeInSevenDays; 
-	//should be an array of enum
-	private ArrayList<String> type;
 	
-	public LocationFetched(String gSon){
+	private ArrayList<String> openingTimeInSevenDays; 
+	private ArrayList<String> type;
+	private ArrayList<Photo> photos;
+	
+	public ArrayList<Photo> getPhotos(){
+		return photos;
+	}
+	
+	public void setPhotos(Photo[] photos){
+		this.photos = new ArrayList<Photo>(Arrays.asList(photos));
+	}
+	
+	public LocationFetched(){
 		//public contructor, need to switch to model factory afterwards
 	}
 	
@@ -47,10 +58,10 @@ public class LocationFetched {
 	public void setGeometry(Geometry geometry) {
 		this.geometry = geometry;
 	}
-	public String getIcon() {
+	public URL getIcon() {
 		return icon;
 	}
-	public void setIcon(String icon) {
+	public void setIcon(URL icon) {
 		this.icon = icon;
 	}
 	public String getgPlaceID() {
@@ -62,14 +73,14 @@ public class LocationFetched {
 	public ArrayList<String> getOpeningTimeInSevenDays() {
 		return openingTimeInSevenDays;
 	}
-	public void setOpeningTimeInSevenDays(ArrayList<String> openingTimeInSevenDays) {
-		this.openingTimeInSevenDays = openingTimeInSevenDays;
+	public void setOpeningTimeInSevenDays(String[] openingTimeInSevenDays) {
+		this.openingTimeInSevenDays = new ArrayList<String>(Arrays.asList(openingTimeInSevenDays));
 	}
 	public ArrayList<String> getType() {
 		return type;
 	}
-	public void setType(ArrayList<String> type) {
-		this.type = type;
+	public void setType(String[] type) {
+		this.type = new ArrayList<String>(Arrays.asList(type));
 	}
 	
 	

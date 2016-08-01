@@ -5,7 +5,6 @@ import java.io.*;
 public class Photo {
 	private int height;
 	private int width;
-	private ArrayList<String> html;
 	private String photoReference;
 	private String PhotoLocalUrl;
 	
@@ -20,12 +19,6 @@ public class Photo {
 	}
 	public void setWidth(int width) {
 		this.width = width;
-	}
-	public ArrayList<String> getHtml() {
-		return html;
-	}
-	public void setHtml(ArrayList<String> html) {
-		this.html = html;
 	}
 	public String getPhotoReference() {
 		return photoReference;
