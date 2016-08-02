@@ -56,13 +56,14 @@ public class Utility {
         return obj.toString();
     }
     
-    public static String constructGSON(String tag, boolean status, String err_msg){
+    public static String constructGSON(String tag, boolean status, String msg){
 		Gson gson = new Gson();
 		//System.out.println(locationData.toString());
 		JsonObject jo = new JsonObject();	
 		jo.addProperty("tag", tag);
 		jo.addProperty("status", status);
-		jo.addProperty("err_msg", err_msg);
+		//change to msg since msgs are not always err msg
+		jo.addProperty("msg", msg);
 		System.out.println(jo.toString());
 		return gson.toJson(jo);
     }
