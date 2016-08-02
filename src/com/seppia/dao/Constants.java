@@ -8,5 +8,6 @@ public class Constants {
   public static String dbUser = "root";
   public static String dbPwd = "seppiadb";
   public static String mapAPIKey = "AIzaSyCwiqPDugfGJQtYn-LBvwkhscUpJkStlFs";
-  public static String searchBaseURL = "https://maps.googleapis.com/maps/api/place/textsearch/json?";
+  public static String textSearchBaseURL = "https://maps.googleapis.com/maps/api/place/textsearch/json?";
+  public static String nearbySearchBaseURL = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?";
 }
