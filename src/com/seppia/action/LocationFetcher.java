@@ -1,5 +1,7 @@
 package com.seppia.action;
 
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 
 import javax.ws.rs.GET;
@@ -10,31 +12,119 @@ import javax.ws.rs.QueryParam;
 
 import com.google.gson.*;
 import com.google.maps.*;
+import com.google.maps.model.LatLng;
+import com.google.maps.model.PlacesSearchResponse;
+import com.google.maps.model.PlacesSearchResult;
 import com.seppia.util.Utility;
 import com.seppia.model.*;
 import com.seppia.dao.*;
 
 public class LocationFetcher {
 	
-	public Location transferLocationFechted(LocationFetched fetchedLocation){
+	public ArrayList<Location> fetchLocationsByGeometry(Geometry geo, int radius, String keyword) throws Exception{
+		GeoApiContext context = new GeoApiContext().setApiKey(Constants.mapAPIKey);
+		NearbySearchRequest request =  PlacesApi.nearbySearchQuery(context, new LatLng(geo.getLat(), geo.getLng()));
+		request.radius(radius);
+		request.keyword(keyword);
+		ArrayList<Location> fetchedResult = new ArrayList<Location>();
+		try{
+			PlacesSearchResponse response = request.await();
+			PlacesSearchResult[] results = response.results;
+			//loop through to get results.
+			for(PlacesSearchResult result : results){
+				LocationFetched fetchedLocation = this.transferResulttoLocationFetched(result);
+				Location location = this.transferLocationFechted(fetchedLocation);
+				fetchedResult.add(location);
+				
+				//add to db has an issue with
+				//this.addLocationToLocationTable(location);
+			}
+			return fetchedResult;
+		} catch (Exception e){
+			throw e;
+		}
+	}
+	
+	public ArrayList<Location> fetchLocationsByQuery(String query) throws Exception{
+		GeoApiContext context = new GeoApiContext().setApiKey(Constants.mapAPIKey);
+		TextSearchRequest request =  PlacesApi.textSearchQuery(context, query);
+		ArrayList<Location> fetchedResult = new ArrayList<Location>();
+		try{
+			PlacesSearchResponse response = request.await();
+			PlacesSearchResult[] results = response.results;
+			//loop through to get results.
+			for(PlacesSearchResult result : results){
+				LocationFetched fetchedLocation = this.transferResulttoLocationFetched(result);
+				Location location = this.transferLocationFechted(fetchedLocation);
+				fetchedResult.add(location);
+				
+				//add to db has an issue with
+				//this.addLocationToLocationTable(location);
+			}
+			return fetchedResult;
+		} catch (Exception e){
+			throw e;
+		}
+		
+	}
+	
+	private Location transferLocationFechted(LocationFetched fetchedLocation) throws Exception{
 		Location location = new Location();
+		location.setAddress(fetchedLocation.getAddress());
+		location.setName(fetchedLocation.getName());
+		location.setPhone(fetchedLocation.getPhone());
+		location.setGeometry(fetchedLocation.getGeometry());
+		location.setRating(fetchedLocation.getRating());
+		if(fetchedLocation.getPhotos() != null && fetchedLocation.getPhotos().size() > 0){
+			location.setPhoto(fetchedLocation.getPhotos().get(0));
+		}
+		else{
+			//defaulted photo
+			location.setPhoto(156, 324, "http://images.locanto.in/1124850122/Regent-Club-One-of-the-top-clubs-in-Bangalore-sports-club-in_3.jpg");
+		}
+		location.setOpeningTimeInSevenDays(fetchedLocation.getOpeningTimeInSevenDays());
+		
+		//TODO need Photo DBs
 		return location;
 	}
 	
-	public LocationFetched transferJSONtoLocationFetched(String jsonResult){
-		LocationFetched location = new LocationFetched(jsonResult);
+	private LocationFetched transferResulttoLocationFetched(PlacesSearchResult result){
+		LocationFetched location = new LocationFetched();
+		location.setAddress(result.vicinity);
+		Geometry geo = new Geometry(result.geometry.location.lat, result.geometry.location.lng);
+		location.setGeometry(geo);
+		location.setgPlaceID(result.placeId);
+		location.setName(result.name);
+		location.setVicinity(result.vicinity);
+		location.setIcon(result.icon);
+		//seems like the contact is not the primary information.
+		location.setPhone("123456789");
+		//TODO 1)Photos
+		location.setType(result.types);
+		location.setRating((double)result.rating);
+		if(result.openingHours != null){
+			location.setOpeningTimeInSevenDays(result.openingHours.weekdayText);
+		}
+		else{
+			String[] weekdayText = {"", "", "", "", "", "", ""};
+			location.setOpeningTimeInSevenDays(weekdayText);
+		}
+		//System.out.print(result.photos);
+		
+		if(result.photos != null){
+			location.setPhotos(result.photos);
+		}
 		return location;
 	}
 	
-	public String saveRawJsonResult(String jsonResult){
-		//save json string as 1000 refresh result per file on disk
-		//approx. 100k per file if full
-		return "";
+	public Boolean saveLocationFetchedToFile(LocationFetched locationFetched){
+		//TODO: save it to file
+		return true;
 	}
 	
-	public String addLocationToLocationTable(Location location){
+	private Boolean addLocationToLocationTable(Location location){
 		//call location db function, just a wrapper
 		//indicate auto creation by adding column boolean isAutoGenerated
-		return"";
+		return true;
 	}
 }

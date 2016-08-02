@@ -71,7 +71,7 @@ public class Utility {
     //this function can be divided into two: 1) one single object; 2) an array of object
     public static String constructGSON(String tag, boolean status, Object result){
     	//serialization should be added in to utility.java
-		Gson gson = new Gson();
+		Gson gson = new GsonBuilder().setPrettyPrinting().create();
 		//System.out.println(locationData.toString());
 		JsonElement je = gson.toJsonTree(result);	
 		//System.out.println(je.toString());
@@ -84,24 +84,35 @@ public class Utility {
 		return gson.toJson(jo);
     }
  
-    public static String constructSearchURL(String query, String radius){
-    	StringBuilder result = new StringBuilder(Constants.searchBaseURL);
-    	result.append("query=");
+    public static String constructSearchURL(String baseURL, String query){
+    	StringBuilder result = new StringBuilder(baseURL);
     	result.append(query);
-    	result.append("&radius=");
-    	result.append(radius);
     	result.append("&key=");
     	result.append(Constants.mapAPIKey);
     	return result.toString();
     }
     
-    public static String constructSearchQuery(String query, String zipcode, String country){
-    	StringBuilder result = new StringBuilder(query);
+    public static String constructAutoSearchQuery(String sport, String zipcode, String country){
+    	StringBuilder result = new StringBuilder(sport);
     	result.append(" in");
     	result.append(zipcode);
     	result.append(" ");
     	result.append(country);
     	return result.toString();
+    }
+    
+    public static String contructNearbySearchQuery(double lat, double lng, double radius, String keyword){
+    	StringBuilder result = new StringBuilder();
+    	result.append("location=");
+    	result.append(lat);
+    	result.append(",");
+    	result.append(lng);
+    	result.append("&radius=");
+    	result.append(radius);
+    	result.append("&keyword=");
+    	result.append(keyword);
+    	return result.toString();
+    	
     }
     
 }
