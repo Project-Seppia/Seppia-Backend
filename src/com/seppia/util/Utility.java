@@ -1,5 +1,7 @@
 package com.seppia.util;
 
+import java.util.*;
+
 import org.codehaus.jettison.json.JSONException;
 import org.codehaus.jettison.json.JSONObject;
 
@@ -7,7 +9,16 @@ import com.google.gson.*;
 import com.seppia.dao.Constants;
 
 public class Utility {
-    /**
+    
+	// a static set of all current token string used
+	public static Set<String> TokenSet = new HashSet<String>();
+	public static boolean isTokenCurrentActive(String token){
+		if(Utility.TokenSet.contains(token) ){
+			return true;
+		}
+		return false;
+	}
+	/**
      * Null check Method
      * 
      * @param txt
@@ -68,6 +79,18 @@ public class Utility {
 		return gson.toJson(jo);
     }
     
+    public static String constructGSON(String tag, boolean status, String msg, String token){
+		Gson gson = new Gson();
+		//System.out.println(locationData.toString());
+		JsonObject jo = new JsonObject();	
+		jo.addProperty("tag", tag);
+		jo.addProperty("status", status);
+		jo.addProperty("err_msg", msg);
+		jo.addProperty("token", token);
+		System.out.println(jo.toString());
+		return gson.toJson(jo);
+    }
+    
     //this function can be divided into two: 1) one single object; 2) an array of object
     public static String constructGSON(String tag, boolean status, Object result){
     	//serialization should be added in to utility.java
@@ -84,6 +107,22 @@ public class Utility {
 		return gson.toJson(jo);
     }
  
+    public static String constructGSON(String tag, boolean status, Object result, String token){
+    	//serialization should be added in to utility.java
+		Gson gson = new GsonBuilder().setPrettyPrinting().create();
+		//System.out.println(locationData.toString());
+		JsonElement je = gson.toJsonTree(result);	
+		//System.out.println(je.toString());
+		JsonObject jo = new JsonObject();
+		jo.add("result", je);
+		jo.addProperty("tag", tag);
+		jo.addProperty("status", true);
+		jo.addProperty("err_msg", "None");
+		jo.addProperty("token", token);
+		//System.out.println(jo.toString());
+		return gson.toJson(jo);
+    }
+    
     public static String constructSearchURL(String baseURL, String query){
     	StringBuilder result = new StringBuilder(baseURL);
     	result.append(query);
