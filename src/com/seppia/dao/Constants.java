@@ -10,4 +10,6 @@ public class Constants {
   public static String mapAPIKey = "AIzaSyCwiqPDugfGJQtYn-LBvwkhscUpJkStlFs";
   public static String textSearchBaseURL = "https://maps.googleapis.com/maps/api/place/textsearch/json?";
   public static String nearbySearchBaseURL = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?";
+  public static String publicJWTResource = "https://cognito-idp.us-east-1.amazonaws.com/us-east-1_dDcvwYYrs/.well-known/jwks.json";
 }
+ 
