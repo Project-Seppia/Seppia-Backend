@@ -1,6 +1,8 @@
 package com.seppia.model;
 
 public class UserLogin {
+	//TODO remove this class and model and dao and table in DB
+	//We use cognito login and register now
 	String user_id;
 	String user_mail;
 	String user_pw;

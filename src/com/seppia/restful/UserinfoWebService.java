@@ -1,5 +1,7 @@
 package com.seppia.restful;
 
+import java.net.MalformedURLException;
+import java.text.ParseException;
 import java.util.ArrayList;
 
 import javax.ws.rs.*;
@@ -9,7 +11,10 @@ import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jettison.json.JSONArray;
 
 import com.google.gson.*;
+import com.nimbusds.jose.JOSEException;
+import com.nimbusds.jose.proc.BadJOSEException;
 import com.seppia.action.LocationAction;
+import com.seppia.action.TokenAction;
 import com.seppia.action.UserinfoAction;
 import com.seppia.model.Location;
 import com.seppia.model.Userinfo;
@@ -24,8 +29,8 @@ public class UserinfoWebService {
 	@Produces("application/json")
 
 //	
-
 	public String getAllUsers(){
+		
 		String Users = "";
 		String tag = "/Userinfo/getUsers";
 		try
@@ -43,4 +48,30 @@ public class UserinfoWebService {
 		}
 	}
 	
+	@GET
+	@Path("/getUserByID")
+	@Produces("application/json")
+	public String getUserById(@QueryParam("token") String idToken){
+		TokenAction tokenAction = new TokenAction();
+		try {
+			Userinfo userInfo = tokenAction.validIDToken(idToken);
+			//TODO: use user info object to return
+		} catch (MalformedURLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (BadJOSEException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (JOSEException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (Exception e){
+			e.printStackTrace();
+		}
+		
+		return "Not Implemented";
+	}
 }
